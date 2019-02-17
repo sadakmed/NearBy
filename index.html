@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <title>NearBy</title>
+    <link href="asset/style.css" rel="stylesheet">
+    <link href="asset/bootstrap.min.css" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="asset/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+ 
+</head>
+<body>
+
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12" style="border-right: 1px dotted #C2C2C2;padding-right: 30px;">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#Login" data-toggle="tab">Login</a></li>
+                            <li><a href="#Registration" data-toggle="tab">Registration</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                        <input type="hidden" id="lat" >
+                        <input type="hidden" id="long" >
+
+
+
+
+
+
+                            <div class="tab-pane active" id="Login">
+                                <form role="form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="emailL" class="col-sm-2 control-label">
+                                        Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="emailL" name="email" onmouseout="emailValidator()" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwdL" class="col-sm-2 control-label">
+                                        Password</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="pwdL" name="pwd" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                    </div>
+                                    <div class="col-sm-10">
+                                        <button type="button" class="btn btn-primary btn-sm" id="loginBtn" >
+                                            Login</button>
+                                      
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+
+
+
+
+
+
+                            <div class="tab-pane" id="Registration">
+                                <form role="form" class="form-horizontal" >
+                                
+                                <div class="form-group">
+                                    <label for="emailR" class="col-sm-2 control-label">
+                                        Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" class="form-control" id="emailR" name="email" placeholder="Email" /><span id="emailValidation" ></span>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="pwdR" class="col-sm-2 control-label">
+                                        Password:</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="pwdR" name="pwd" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="cpwdR" class="col-sm-2 control-label">
+                                       Confirm Password:</label>
+                                    <div class="col-sm-10">
+                                        <input type="password" class="form-control" id="cpwdR" name="cpwd" placeholder="Confirm Password" /> <span id="message"></span>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2"></div>
+                                    <div class="col-sm-10">
+                                        <button type="button" class="btn btn-primary btn-sm" id="registerBtn" >
+                                            Register</button>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+
+
+
+
+                        </div>                        
+                    </div>
+                    <!-- -col-md -->
+                </div>
+                <!-- row -->
+            </div>
+            <!-- modal -->
+        </div>
+        <!-- modal content -->
+    </div>
+
+
+
+
+<script src="asset/script.js"> </script>
+
+
+</body>
+</html>
