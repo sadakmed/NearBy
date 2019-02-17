@@ -42,3 +42,90 @@ function getNavBar(){
   getSkeleton();
   $("nav#navBar").append('<div class="container-fluid"><ul class="nav navbar-nav"><li class="active"><a id="nearbytab" href="#">NearBy Shops</a></li><li><a href="#" id = "prefertab">Preferred Shops</a></li></ul></div>');
 }
+
+function likeShop(){
+  var shopId=$(this).children().val();
+  $.ajax({url:"backendPhp/likeshop.php",
+          method:"POST",
+          data:{shopId:shopId},
+          error:function(result){console.log(result);},
+          success:function(result){
+              console.log(result);
+              if( result=="1")
+                  $("div#"+shopId).remove();
+          }
+  });
+}
+
+
+
+function register(){
+            
+  var emailR = $("input#emailR").val();
+  var pwdR = $("input#pwdR").val();
+  var cpwdR = $("input#cpwdR").val();
+  var lat = $("input#lat").val();
+  var long = $("input#long").val();
+
+
+
+  if (pwdR== cpwdR & emailValidator(emailR) ) {
+
+        $.ajax({
+                    method: "POST",
+                    url: "backendPhp/register.php",
+                    data: { email: emailR,pwd:pwdR,lat:lat,long:long},
+                    error:function(result){ alert("Something went Wrong, Please try again!!");},
+                    success:nearByShops
+                });
+    }else 
+        alert("Email is Invalid or Passwords don't match!!");
+}
+function login(){
+            
+  var emailL = $("input#emailL").val();
+  var pwdL = $("input#pwdL").val();
+  var lat = $("input#lat").val();
+  var long = $("input#long").val();
+
+
+
+  if (emailValidator(emailL)) {
+
+        $.ajax({
+                    method: "POST",
+                    url: "backendPhp/login.php",
+                    data: { email: emailL,pwd:pwdL,lat:lat,long:long},
+                    error:function(result){ alert("Something went Wrong, Please try again!!");},
+                    success:nearByShops
+                });
+    }else 
+        alert("Email is Invalid or Passwords don't match!!");
+}
+
+
+
+}
+
+
+
+
+function nearByShops(result){
+                      
+  if(result!="-1"){
+      try{                                
+          var shops=JSON.parse(result);  
+          $("div.modal-dialog").remove();   
+          getNavBar();       
+          $("#cardShoptmp").tmpl(shops).appendTo("div#shops");
+          $("i.glyphicon-thumbs-up").click(likeShop);
+      
+      }catch(err) {
+          alert("Something went Wrong, Please try again!!");
+
+      }
+  }else
+      alert("This email already exists!!");
+
+}
+
