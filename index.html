@@ -29,8 +29,7 @@
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                        <input type="hidden" id="lat" >
-                        <input type="hidden" id="long" >
+                       
 
 
 
@@ -130,7 +129,8 @@
 
 
 
-
+    <input type="hidden" id="lat" >
+    <input type="hidden" id="long" >
 
 
 
@@ -169,6 +169,8 @@
         
         $("button#registerBtn").click(register);
         $("button#loginBtn").click(login);
+        $("a#prefertab").click(getPreferredShops);
+        $("a#nearbytab").click(getNearByShops);
 
     });
     </script>

@@ -75,12 +75,16 @@ function register(){
                     method: "POST",
                     url: "backendPhp/register.php",
                     data: { email: emailR,pwd:pwdR,lat:lat,long:long},
-                    error:function(result){ alert("Something went Wrong, Please try again!!");},
-                    success:nearByShops
+                    error:function(result){
+                      console.log(result);
+                      alert("Something went Wrong, Please try again!!");},
+                    success:displayNearByShops
                 });
     }else 
         alert("Email is Invalid or Passwords don't match!!");
 }
+
+
 function login(){
             
   var emailL = $("input#emailL").val();
@@ -96,8 +100,8 @@ function login(){
                     method: "POST",
                     url: "backendPhp/login.php",
                     data: { email: emailL,pwd:pwdL,lat:lat,long:long},
-                    error:function(result){ alert("Something went Wrong, Please try again!!");},
-                    success:nearByShops
+                    error:function(result){ console.log(result); alert("Something went Wrong, Please try again!!");},
+                    success:displayNearByShops
                 });
     }else 
         alert("Email is Invalid or Passwords don't match!!");
@@ -105,12 +109,13 @@ function login(){
 
 
 
-}
 
 
 
 
-function nearByShops(result){
+
+function displayNearByShops(result){
+  console.log(result);
                       
   if(result!="-1"){
       try{                                
@@ -128,4 +133,23 @@ function nearByShops(result){
       alert("This email already exists!!");
 
 }
+function getNearByShops(){
 
+  var lat = $("input#lat").val();
+  var long = $("input#long").val();
+  $.ajax({url:"backendPhp/nearby.php",
+          method:"POST",
+          data:{lat:lat,long:long},
+          success:displayNearByShops
+        });
+
+
+
+}
+
+function getPreferredShops(){
+
+
+
+
+}

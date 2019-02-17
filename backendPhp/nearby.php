@@ -1,6 +1,8 @@
 <?php 
+require_once "session.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
+require_once "connection.php";
 
 
 if (isset ($_POST["lat"]) && isset ($_POST["long"]) && $_SESSION["userId"]){
@@ -20,7 +22,7 @@ if (isset ($_POST["lat"]) && isset ($_POST["long"]) && $_SESSION["userId"]){
 
     foreach ($stmt->fetchAll() as $key => $value) {
     
-        $shop["distance"]= round(  (float)$value["distance"] ,3);
+        $shop["distance"]= round(  (float)$value["distance"] ,3)*1000;
         $shop["ShopName"]= $value["ShopName"];
         $shop["ImgUrl"]= $value["ImgUrl"];
         $shop["Id"]= $value["Id"];

@@ -1,9 +1,8 @@
 <?php 
-session_start();
+require_once "session.php";
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 require_once "connection.php";
-
 
 if(isset($_POST["shopId"]) && isset ($_SESSION["userId"])){
     $stmt=$pdo->prepare("insert into preferredShops (IdShop,IdUser) values (:shopId,:userId) ");
