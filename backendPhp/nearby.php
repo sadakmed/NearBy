@@ -3,14 +3,14 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
 
-if (isset ($_POST["lat"]) && isset ($_POST["long"]) ){
+if (isset ($_POST["lat"]) && isset ($_POST["long"]) && $_SESSION["userId"]){
     
     $sql = "SELECT calcDistance(:lat,:long,s.Latitude,s.Longitude) as distance , s.ShopName ,s.ImgUrl , s.Id  FROM `shops` s WHERE calcDistance(:lat,:long,s.Latitude,s.Longitude) <= 10 AND (s.Id NOT IN (SELECT p.IdShop from preferredShops p WHERE p.IdShop = s.Id and p.IdUser = :user ))";
     $stmt = $pdo->prepare($sql);
   
     $stmt->bindValue(':lat', $_POST["lat"]);
     $stmt->bindValue(':long', $_POST["long"]);
-    $stmt->bindValue(':user', $user);
+    $stmt->bindValue(':user', $_SESSION["userId"]);
  
     
     $return = $stmt->execute();

@@ -32,5 +32,13 @@ function getLocation(){
     }else
       Alert("Browser doesn't support geolocation!");
     
-  }
-  
+}
+
+function getSkeleton(){
+    $("div#skeleton").append('<nav class="navbar navbar-default" id="navBar"></nav><div class="row"><div class="col-lg-12"><div class="row" id="shops"></div><div class="row" id="preferredShops"></div></div></div>');
+}  
+
+function getNavBar(){
+  getSkeleton();
+  $("nav#navBar").append('<div class="container-fluid"><ul class="nav navbar-nav"><li class="active"><a id="nearbytab" href="#">NearBy Shops</a></li><li><a href="#" id = "prefertab">Preferred Shops</a></li></ul></div>');
+}

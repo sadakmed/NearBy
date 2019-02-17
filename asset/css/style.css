@@ -11,3 +11,18 @@ div.tab-content{
 padding-top:10px; 
 }
 
+.glyphicon {
+ 
+    font-size: 30px;
+
+}
+.glyphicon-thumbs-up {
+ 
+   color:blue;
+
+}
+.glyphicon-thumbs-down {
+ 
+   color:red;
+
+}
