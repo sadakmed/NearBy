@@ -10,13 +10,15 @@
     <link href="asset/css/style.css" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="asset/js/jquery.min.js"></script>
+
+    
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js" type="text/javascript"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
  
 </head>
 <body>
 
-    <div class="modal-dialog modal-md">
+    <div class="modal-dialog modal-md" id="mymodal" style="display : none;">
         <div class="modal-content">
             
             <div class="modal-body">
@@ -167,10 +169,29 @@
         
         getLocation();
         
-        $("button#registerBtn").click(register);
-        $("button#loginBtn").click(login);
-        $("a#prefertab").click(getPreferredShops);
-        $("a#nearbytab").click(getNearByShops);
+        $.ajax({url:"backendPhp/root.php",
+                success:function(result){
+                    if(result=="-1"){
+                        $("mymodal").show();
+                        $("button#registerBtn").click(register);
+                        $("button#loginBtn").click(login);
+                    }else if ( result=="1"){
+
+                        getNearByShops();
+                        navigateNavBar();
+
+
+                    }
+                  
+
+                }    
+        });
+
+
+        
+
+        
+        
 
     });
     </script>

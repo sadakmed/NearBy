@@ -35,13 +35,11 @@ function getLocation(){
 }
 
 function getSkeleton(){
-    $("div#skeleton").append('<nav class="navbar navbar-default" id="navBar"></nav><div class="row"><div class="col-lg-12"><div class="row" id="shops"></div><div class="row" id="preferredShops"></div></div></div>');
+  if($("ul").children("li").length < 2)
+    $('<nav class="navbar navbar-default" id="navBar"><div class="container-fluid"><ul class="nav navbar-nav"><li class="active"><a id="nearbytab"  >NearBy Shops</a></li><li ><a id = "prefertab">Preferred Shops</a></li></ul></div></nav><div class="row"><div class="col-lg-12"><div class="row" id="shops"></div><div class="row" id="preferredShops"></div></div></div>').appendTo("div#skeleton");
 }  
 
-function getNavBar(){
-  getSkeleton();
-  $("nav#navBar").append('<div class="container-fluid"><ul class="nav navbar-nav"><li class="active"><a id="nearbytab" href="#">NearBy Shops</a></li><li><a href="#" id = "prefertab">Preferred Shops</a></li></ul></div>');
-}
+
 
 function likeShop(){
   var shopId=$(this).children().val();
@@ -121,11 +119,12 @@ function displayNearByShops(result){
       try{                                
           var shops=JSON.parse(result);  
           $("div.modal-dialog").remove();   
-          getNavBar();       
+          getSkeleton();       
           $("#cardShoptmp").tmpl(shops).appendTo("div#shops");
           $("i.glyphicon-thumbs-up").click(likeShop);
       
       }catch(err) {
+          console.log(err);
           alert("Something went Wrong, Please try again!!");
 
       }
@@ -133,6 +132,7 @@ function displayNearByShops(result){
       alert("This email already exists!!");
 
 }
+//0628692011
 function getNearByShops(){
 
   var lat = $("input#lat").val();
@@ -147,9 +147,45 @@ function getNearByShops(){
 
 }
 
+
+function displayPreferredShops(result){
+  console.log(result);
+                      
+  if(result!="-1"){
+      try{                                
+          var shops=JSON.parse(result);  
+          $("div#shops").children().remove(); 
+          // template for preferred shops  
+          
+         
+      
+      }catch(err) {
+          alert("Something went Wrong, Please try again!!");
+
+      }
+  }else
+      alert("This email already exists!!");
+
+}
+
+
 function getPreferredShops(){
+  var lat = $("input#lat").val();
+  var long = $("input#long").val();
+  $.ajax({url:"backendPhp/preferredShops.php",
+          method:"POST",
+          data:{lat:lat,long:long},
+          success:displayPreferredShops
+        });
 
 
 
+
+}
+
+function navigateNavBar(){
+
+  $('div#skeleton').on('click', 'a#prefertab', getPreferredShops);
+  $('div#skeleton').on('click', 'a#nearbytab',  getNearByShops);
 
 }

@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 require_once "connection.php";
 
 
-if ($_SESSION["userId"]){
+if (isset ($_POST["lat"]) && isset ($_POST["long"]) && $_SESSION["userId"]){
     
-    $sql = "SELECT calcDistance(:lat,:long,s.Latitude,s.Longitude) as distance , s.ShopName ,s.ImgUrl , s.Id  FROM `shops` s WHERE calcDistance(:lat,:long,s.Latitude,s.Longitude) <= 10 AND (s.Id NOT IN (SELECT p.IdShop from preferredShops p WHERE p.IdShop = s.Id and p.IdUser = :user ))";
+    $sql = "SELECT calcDistance(:lat,:long,s.Latitude,s.Longitude) as distance , s.ShopName ,s.ImgUrl , s.Id  FROM `shops` s WHERE s.Id  IN (SELECT p.IdShop from preferredShops p WHERE  p.IdUser = :user )  order by distance )";
     $stmt = $pdo->prepare($sql);
   
     $stmt->bindValue(':lat', $_POST["lat"]);
