@@ -89,7 +89,11 @@ function register(){
                     error:function(result){
                       console.log(result);
                       alert("Something went Wrong, Please try again!!");},
-                    success:displayNearByShops
+                    success:function(result){
+                      displayNearByShops(result)
+                      location.reload();
+
+                    } 
                 });
     }else 
         alert("Email is Invalid or Passwords don't match!!");
@@ -112,7 +116,11 @@ function login(){
                     url: "backendPhp/login.php",
                     data: { email: emailL,pwd:pwdL,lat:lat,long:long},
                     error:function(result){ console.log(result); alert("Something went Wrong, Please try again!!");},
-                    success:displayNearByShops
+                    success:function(result){
+                      displayNearByShops(result)
+                      location.reload();
+
+                    } 
                 });
     }else 
         alert("Email is Invalid or Passwords don't match!!");
@@ -212,5 +220,18 @@ function navigateNavBar(){
     $(this).parent("li").addClass("active");
     getNearByShops();
     });
+  
+  $('div#skeleton').on('click', 'a#logout',function(){
+    $.ajax({url:"backendPhp/logout.php",success:logout});
+          });
+          
+        }
+        
+function logout (result){
+          
+  if(result=="1"){ 
+    $("div#skeleton").remove(); 
+    location.reload();    
+  }
 
 }

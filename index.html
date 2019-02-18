@@ -199,7 +199,7 @@
                 success:function(result){
                     console.log(result);
                     if(result=="-1"){
-                        $("mymodal").show();
+                        $("#mymodal").show();
                         $("button#registerBtn").click(register);
                         $("button#loginBtn").click(login);
                     }else if ( result=="1"){
