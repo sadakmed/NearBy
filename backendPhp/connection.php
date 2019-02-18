@@ -2,7 +2,7 @@
 
 $user="akura";
 $pwd="akura";
-$dbname="URTest";
+$dbname="Nearby";
 try{
 
     $pdo = new PDO("mysql:host=localhost;dbname=$dbname", $user, $pwd);
