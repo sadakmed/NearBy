@@ -164,6 +164,32 @@
             </div>
     
     </script>
+
+    <script id="preferShoptmp" type="text/html">
+
+
+        <div class="col-lg-3 col-md-4 mb-3" id="${Id}" >
+                <div class="card">
+                    
+                    <img class="card-img-top" height="180" width="260" src="${ImgUrl}" >
+                    
+                    <div class="card-body">
+                        
+                        <h4 class="card-title">
+                            ${ShopName}
+                        </h4>
+    
+                        <h5> ${distance} <i>Meters</i> </h5>
+                        
+                            <i id="dislike1" class="glyphicon glyphicon-thumbs-down">
+                                <input type="hidden"  value="${Id}" ></i> 
+                        
+                    </div>
+    
+                </div>
+            </div>
+    
+    </script>
     <script>
     $(function() {
         
@@ -171,6 +197,7 @@
         
         $.ajax({url:"backendPhp/root.php",
                 success:function(result){
+                    console.log(result);
                     if(result=="-1"){
                         $("mymodal").show();
                         $("button#registerBtn").click(register);

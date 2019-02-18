@@ -155,12 +155,13 @@ function displayPreferredShops(result){
       try{                                
           var shops=JSON.parse(result);  
           $("div#shops").children().remove(); 
-          // template for preferred shops  
-          
+          $("#preferShoptmp").tmpl(shops).appendTo("div#preferredShops");
+          $("i.glyphicon-thumbs-Down").click(likeShop);          
          
       
       }catch(err) {
-          alert("Something went Wrong, Please try again!!");
+        console.log(err);
+        alert("Something went Wrong, Please try again!!");
 
       }
   }else
@@ -185,7 +186,14 @@ function getPreferredShops(){
 
 function navigateNavBar(){
 
-  $('div#skeleton').on('click', 'a#prefertab', getPreferredShops);
-  $('div#skeleton').on('click', 'a#nearbytab',  getNearByShops);
+  $('div#skeleton').on('click', 'a#prefertab',function(){
+    $("div#shops").children().remove(); 
+    getPreferredShops();
+  });
+  
+  $('div#skeleton').on('click', 'a#nearbytab',function(){
+    $("div#preferredShops").children().remove(); 
+    getNearByShops();
+    });
 
 }

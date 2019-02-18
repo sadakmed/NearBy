@@ -6,9 +6,9 @@ ini_set('display_errors', 1);
 require_once "connection.php";
 
 
-if (isset ($_POST["lat"]) && isset ($_POST["long"]) && $_SESSION["userId"]){
+if (isset ($_POST["lat"]) && isset ($_POST["long"]) && isset($_SESSION["userId"]) ){
     
-    $sql = "SELECT calcDistance(:lat,:long,s.Latitude,s.Longitude) as distance , s.ShopName ,s.ImgUrl , s.Id  FROM `shops` s WHERE s.Id  IN (SELECT p.IdShop from preferredShops p WHERE  p.IdUser = :user )  order by distance )";
+    $sql = "SELECT calcDistance(:lat,:long,s.Latitude,s.Longitude) as distance , s.ShopName ,s.ImgUrl , s.Id  FROM `shops` s WHERE s.Id  IN (SELECT p.IdShop from preferredShops p WHERE  p.IdUser = :user ) ";
     $stmt = $pdo->prepare($sql);
   
     $stmt->bindValue(':lat', $_POST["lat"]);
@@ -17,9 +17,8 @@ if (isset ($_POST["lat"]) && isset ($_POST["long"]) && $_SESSION["userId"]){
  
     
     $return = $stmt->execute();
-    //var_dump($stmt->fetchAll()) ;
+   
     $shops=array();
-
 
     foreach ($stmt->fetchAll() as $key => $value) {
     
