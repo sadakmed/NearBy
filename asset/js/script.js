@@ -36,7 +36,7 @@ function getLocation(){
 
 function getSkeleton(){
   if($("ul").children("li").length < 2)
-    $('<nav class="navbar navbar-default" id="navBar"><div class="container-fluid"><ul class="nav navbar-nav"><li class="active"><a id="nearbytab"  >NearBy Shops</a></li><li ><a id = "prefertab">Preferred Shops</a></li></ul></div></nav><div class="row"><div class="col-lg-12"><div class="row" id="shops"></div><div class="row" id="preferredShops"></div></div></div>').appendTo("div#skeleton");
+    $('<nav class="navbar navbar-default" id="navBar"><div class="container-fluid pull-right"><ul class="nav navbar-nav"><li class="active"><a id="nearbytab"  >NearBy Shops</a></li><li ><a id = "prefertab">Preferred Shops</a></li><li ><a id="logout" >Logout</a> </li></ul></div></nav><div class="row"><div class="col-lg-12"><div class="row" id="shops"></div></div></div>').appendTo("div#skeleton");
 }  
 
 
@@ -55,6 +55,19 @@ function likeShop(){
   });
 }
 
+function removelike(){
+  var likeId=$(this).children("input").val();
+  $.ajax({url:"backendPhp/removepshop.php",
+          method:"POST",
+          data:{likeId:likeId},
+          error:function(result){console.log(result);},
+          success:function(result){
+              console.log(result);
+              if( result=="1")
+                  $("div#"+likeId).remove();
+          }
+  });
+}
 
 
 function register(){
@@ -155,8 +168,8 @@ function displayPreferredShops(result){
       try{                                
           var shops=JSON.parse(result);  
           $("div#shops").children().remove(); 
-          $("#preferShoptmp").tmpl(shops).appendTo("div#preferredShops");
-          $("i.glyphicon-thumbs-Down").click(likeShop);          
+          $("#preferShoptmp").tmpl(shops).appendTo("div#shops");
+          $("i.glyphicon-thumbs-down").click(removelike);          
          
       
       }catch(err) {
@@ -187,12 +200,16 @@ function getPreferredShops(){
 function navigateNavBar(){
 
   $('div#skeleton').on('click', 'a#prefertab',function(){
-    $("div#shops").children().remove(); 
+    $("div#shops").children().remove();
+    $("a#nearbytab").parent().removeClass("active") 
+    $(this).parent("li").addClass("active");
     getPreferredShops();
   });
   
   $('div#skeleton').on('click', 'a#nearbytab',function(){
-    $("div#preferredShops").children().remove(); 
+    $("div#shops").children().remove(); 
+    $("a#prefertab").parent().removeClass("active") 
+    $(this).parent("li").addClass("active");
     getNearByShops();
     });
 
